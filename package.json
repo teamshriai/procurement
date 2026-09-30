@@ -2,16 +2,13 @@
   "name": "shri-health-procurement-centre",
   "private": true,
   "version": "1.0.0",
-  "description": "Hospital procurement & inventory portal \u2014 React (Vite) + Express + PostgreSQL",
+  "description": "Hospital pharmacy procurement & inventory portal: a static React (Vite) app with an in-browser sample database",
   "scripts": {
-    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
-    "db:init": "npm --prefix server run db:init",
-    "db:reset": "npm --prefix server run db:reset",
-    "dev": "concurrently -k -n api,web -c blue,cyan \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "install:all": "npm --prefix client ci",
+    "dev": "npm --prefix client run dev",
     "build": "npm --prefix client run build",
-    "start": "npm run build && npm --prefix server start"
-  },
-  "devDependencies": {
-    "concurrently": "^9.1.0"
+    "build:dev-procurement": "npm --prefix client run build:dev-procurement",
+    "preview": "npm --prefix client run preview",
+    "preview:dev-procurement": "npm --prefix client run preview:dev-procurement"
   }
 }

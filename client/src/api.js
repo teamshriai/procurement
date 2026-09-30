@@ -1,22 +1,24 @@
+// Data access for the pages. The app used to call an Express/Postgres server under /api;
+// it now talks to an in-browser database (see ./mock) with the same routes and JSON shapes,
+// so the pages did not have to change.
+import { dispatch } from './mock/routes';
+import { HttpError } from './mock/services';
+
 async function request(method, url, body) {
-  const res = await fetch(`/api${url}`, {
-    method,
-    headers: body ? { 'Content-Type': 'application/json' } : undefined,
-    body: body ? JSON.stringify(body) : undefined,
-  });
-  if (res.status === 204) return null;
-  let data = null;
+  const [path, search = ''] = url.split('?');
+  // Same round trips the network used to do: query strings are text, bodies and results are plain JSON
+  const query = Object.fromEntries(new URLSearchParams(search));
+  const payload = body ? JSON.parse(JSON.stringify(body)) : {};
   try {
-    data = await res.json();
-  } catch {
-    /* empty body */
-  }
-  if (!res.ok) {
-    const err = new Error(data?.error || `Request failed (${res.status})`);
+    const result = dispatch(method, path, query, payload);
+    return result === null || result === undefined ? null : JSON.parse(JSON.stringify(result));
+  } catch (e) {
+    const data = e instanceof HttpError ? { error: e.message, ...e.details } : { error: 'Internal server error' };
+    if (!(e instanceof HttpError)) console.error(e);
+    const err = new Error(data.error);
     err.data = data;
     throw err;
   }
-  return data;
 }
 
 const qs = (params = {}) => {

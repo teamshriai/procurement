@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import { useCart } from '../context';
 import { api } from '../api';
+import { resetSampleData } from '../mock/store';
+import { asset } from '../utils';
 
 // Six top-level sections. Related screens sit as tabs inside a section,
 // so every feature is at most two clicks from anywhere.
@@ -54,6 +56,14 @@ export default function Layout() {
   const section = NAV.find((s) => s.tabs.some((t) => matches(t, pathname)));
   const badges = { requests: pending, cart: totals.count };
 
+  // All data lives in this browser; this puts the original sample data back.
+  const onReset = () => {
+    if (!window.confirm('Reset all data in this browser back to the original sample data? Your changes will be lost.')) return;
+    resetSampleData();
+    try { localStorage.removeItem('shpc-cart'); } catch { /* storage unavailable */ }
+    window.location.assign(import.meta.env.BASE_URL);
+  };
+
   const onSearch = (e) => {
     e.preventDefault();
     navigate(`/inventory?q=${encodeURIComponent(q.trim())}`);
@@ -64,7 +74,7 @@ export default function Layout() {
     <div className={`shell ${navOpen ? 'nav-open' : ''}`}>
       <aside className="sidebar">
         <Link to="/" className="brand" onClick={() => setNavOpen(false)}>
-          <img src="/logo.png" alt="" width="38" height="38" />
+          <img src={asset('logo.png')} alt="" width="38" height="38" />
           <div>
             <strong>Shri Health</strong>
             <span>Procurement Centre</span>
@@ -87,13 +97,21 @@ export default function Layout() {
             );
           })}
         </nav>
-        <div className="sidebar-foot">Pharmacy Procurement</div>
+        <div className="sidebar-foot">
+          <span>Pharmacy Procurement</span>
+          <button type="button" className="reset-demo" onClick={onReset} title="Discard your changes and reload the sample data">
+            Reset sample data
+          </button>
+        </div>
       </aside>
       <div className="scrim" onClick={() => setNavOpen(false)} />
 
       <div className="main">
         <header className="topbar">
           <button className="icon-btn menu-btn" onClick={() => setNavOpen(true)} aria-label="Open menu"><Menu size={20} /></button>
+          <Link to="/" className="topbar-brand" aria-label="Shri Health Procurement Centre home">
+            <img src={asset('logo.png')} alt="" width="32" height="32" />
+          </Link>
           <form className="topbar-search" onSubmit={onSearch}>
             <Search size={17} />
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search items by name, SKU or brand…" />

@@ -82,7 +82,9 @@ input, select, textarea, button { font: inherit; color: inherit; }
 .nav-link:hover { background: rgba(255,255,255,0.07); color: #fff; text-decoration: none; }
 .nav-link.active { background: var(--blue-600); color: #fff; box-shadow: 0 6px 16px -6px rgba(29, 78, 216, 0.8); }
 .nav-pill { margin-left: auto; background: #fff; color: var(--navy-800); font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 99px; }
-.sidebar-foot { padding: 16px 20px; font-size: 11px; color: #7f96c4; border-top: 1px solid rgba(255,255,255,0.08); }
+.sidebar-foot { padding: 16px 20px; font-size: 11px; color: #7f96c4; border-top: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.reset-demo { background: none; border: 0; padding: 0; font: inherit; color: #9fb4de; text-decoration: underline; cursor: pointer; }
+.reset-demo:hover { color: #fff; }
 .scrim { display: none; }
 
 .main { flex: 1; margin-left: var(--sidebar-w); min-width: 0; display: flex; flex-direction: column; }
@@ -91,6 +93,8 @@ input, select, textarea, button { font: inherit; color: inherit; }
   background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border);
 }
 .topbar .menu-btn { display: none; }
+.topbar-brand { display: none; flex-shrink: 0; }
+.topbar-brand img { display: block; object-fit: contain; }
 .topbar-search {
   flex: 1; max-width: 520px; display: flex; align-items: center; gap: 9px; padding: 0 14px; height: 40px;
   background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; color: var(--muted);
@@ -442,6 +446,7 @@ a.stat:hover { text-decoration: none; border-color: var(--blue-200); transform: 
   .nav-open .scrim { display: block; position: fixed; inset: 0; background: rgba(4,19,48,0.45); z-index: 35; }
   .main { margin-left: 0; }
   .topbar .menu-btn { display: inline-grid; }
+  .topbar-brand { display: block; } /* the sidebar (and its logo) is hidden at this width */
   .topbar { padding: 0 16px; }
   .content { padding: 20px 16px 40px; }
   .grid-2, .grid-3, .grid-2.inner { grid-template-columns: 1fr; }

@@ -10,7 +10,7 @@ export function DocHeader({ title, number: docNo, children }) {
   return (
     <div className="doc-head">
       <div className="doc-brand">
-        <img src="/logo.svg" alt="" width="46" height="46" />
+        <img src="/logo.png" alt="" width="46" height="46" />
         <div>
           <strong>Shri Health Procurement Centre</strong>
           <span>Pharmacy Procurement · Medicines</span>

@@ -64,7 +64,7 @@ export default function Layout() {
     <div className={`shell ${navOpen ? 'nav-open' : ''}`}>
       <aside className="sidebar">
         <Link to="/" className="brand" onClick={() => setNavOpen(false)}>
-          <img src="/logo.svg" alt="" width="38" height="38" />
+          <img src="/logo.png" alt="" width="38" height="38" />
           <div>
             <strong>Shri Health</strong>
             <span>Procurement Centre</span>

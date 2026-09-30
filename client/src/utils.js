@@ -61,3 +61,6 @@ export function categoryTree(list) {
 export const UNITS = ['pcs', 'box', 'pack', 'strip', 'bottle', 'vial', 'ampoule', 'tube', 'roll', 'pair', 'set', 'kit',
   'can', 'bag', 'kg', 'litre', 'ream', 'pad', 'jar', 'tin', 'sachet', 'syringe', 'pen', 'inhaler', 'respule'];
 export const GST_RATES = [0, 5, 12, 18, 28];
+
+/** URL of a file in client/public, correct wherever the app is served (site root or a sub-path). */
+export const asset = (name) => `${import.meta.env.BASE_URL}${name}`;

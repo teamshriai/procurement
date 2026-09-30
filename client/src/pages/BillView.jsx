@@ -4,13 +4,13 @@ import { ArrowLeft, Printer, Ban, Loader2, CheckCircle2 } from 'lucide-react';
 import { api } from '../api';
 import { useToast } from '../context';
 import { useFetch, Loading, ErrorBox, StatusBadge, Modal, Field } from '../components/ui';
-import { money, number, dateTime } from '../utils';
+import { money, number, dateTime, asset } from '../utils';
 
 export function DocHeader({ title, number: docNo, children }) {
   return (
     <div className="doc-head">
       <div className="doc-brand">
-        <img src="/logo.png" alt="" width="46" height="46" />
+        <img src={asset('logo.png')} alt="" width="46" height="46" />
         <div>
           <strong>Shri Health Procurement Centre</strong>
           <span>Pharmacy Procurement · Medicines</span>
